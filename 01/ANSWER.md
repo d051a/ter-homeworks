@@ -1,3 +1,4 @@
+# Задание #1
 #### 2. В каком terraform-файле, согласно этому .gitignore, допустимо сохранить личную, секретную информацию?
 - Согласно указанному .gitignore, личную и секретную информацию можно хранить в файлах с расширением .auto.tfvars и в файле personal.auto.tfvars
 
@@ -71,3 +72,9 @@ keep_locally = true
 Подтверждение из документации Terraform провайдера Docker:
 
 keep_locally (Boolean) If true, then the Docker image won't be deleted on destroy operation. If this is false, it will delete the image from the docker local storage on destroy operation.
+
+# Задание #2
+#### 1. Создайте в облаке ВМ.
+
+ВМ создана через через terraform: измененные исходники в src -> main.tf variables.tf etc.
+
