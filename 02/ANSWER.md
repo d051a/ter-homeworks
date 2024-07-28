@@ -38,28 +38,28 @@ service_account_key_file = file("~/.authorized_key.json")
 
 #### Задания #1-6
 
-Ответ в директории ./src
+В рамках реализации заданий в директории ./src были созданы дополнительно variables.tf outputs.tf vms_platform.tf , а также добавлены terraform.tfvars vms_platform.tf В данные файлы внесены изменения в с соответствии с заявленными требованиями по пп. 1-6
 
-#### Задания #7
+ДОПОЛНИТЕЛЬНО по части хардкода было исправлено:
+В resource "yandex_compute_instance" была захадкожена zone.
+В provider "yandex" жестко закодирован путь к файлу service_account_key_file.
+
+#### дополнительное Задания #7 
+
+1. Напишите, какой командой можно отобразить **второй** элемент списка test_list:
 
 ```
 local.test_list[1]
 ```
 
+2. Найдите длину списка test_list с помощью функции length(<имя переменной>):
 
 ```
 length(local.test_list)
 ```
 
-
+3. Напишите, какой командой можно отобразить значение ключа admin из map test_map:
 ```
 local.test_map["admin"]
-```
-
-
-
-#### Задания #8
-```
-var.test[0]["dev1"][0]
 ```
 

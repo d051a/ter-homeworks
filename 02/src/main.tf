@@ -16,7 +16,7 @@ data "yandex_compute_image" "ubuntu" {
 resource "yandex_compute_instance" "platform" {
   name        = local.vm_web_name
   platform_id = "standard-v1"
-  zone        = "ru-central1-a"
+  zone        = var.default_zone
   resources {
     cores         = var.vms_resources.web.cores
     memory        = var.vms_resources.web.memory
@@ -42,6 +42,7 @@ resource "yandex_compute_instance" "platform" {
 resource "yandex_compute_instance" "platform2" {
   name        = local.vm_db_name
   platform_id = "standard-v1"
+  zone        = var.default_zone
   resources {
     cores         = var.vms_resources.db.cores
     memory        = var.vms_resources.db.memory
