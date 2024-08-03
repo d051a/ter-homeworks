@@ -20,8 +20,23 @@
 ![ответ #1](./answer4_1.png)
 ![ответ #1](./answer4_2.png)
 
+#### Задание #5*
+
+Задание: Напишите output, который отобразит ВМ из ваших ресурсов count и for_each в виде списка словарей...
+Ответ: расположен в файле ./src/outputs.tf
 
 
+#### Задание #7*
+задание: Предложите выражение в terraform console, которое удалит из данной переменной 3 элемент из: subnet_ids и subnet_zones...
+ответ:
+
+```
+  updated_vpc = {
+    network_id = local.vpc.network_id
+    subnet_ids = [for idx, id in local.vpc.subnet_ids : id if idx != 2]
+    subnet_zones = [for idx, zone in local.vpc.subnet_zones : zone if idx != 2]
+  }
+```
 
 
 
