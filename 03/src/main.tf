@@ -10,5 +10,5 @@ resource "yandex_vpc_subnet" "develop" {
 }
 
 data "yandex_compute_image" "ubuntu-2004-lts" {
-  family = "ubuntu-2004-lts"
+  family = var.image_family
 }

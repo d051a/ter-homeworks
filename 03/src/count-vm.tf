@@ -1,32 +1,32 @@
 resource "yandex_vpc_security_group" "default" {
-  name       = "default-sg"
+  name       = var.security_group_name
   network_id = yandex_vpc_network.develop.id
 
   ingress {
     description = "allow http"
     protocol    = "TCP"
-    port       = 80
-    v4_cidr_blocks = ["0.0.0.0/0"]
+    port        = var.ingress_http_port
+    v4_cidr_blocks = var.ingress_cidr_blocks
   }
 
   egress {
     description = "allow all"
     protocol    = "TCP"
-    port       = 0
-    v4_cidr_blocks = ["0.0.0.0/0"]
+    port        = var.egress_all_port
+    v4_cidr_blocks = var.egress_cidr_blocks
   }
 }
 
 resource "yandex_compute_instance" "web" {
-  count = 2
+  count = var.web_instance_count
 
   depends_on = [yandex_compute_instance.db]
 
   name = "web-${count.index + 1}"
 
   resources {
-    cores  = 2
-    memory = 2
+    cores  = var.web_instance_cores
+    memory = var.web_instance_memory
   }
 
   boot_disk {
@@ -42,10 +42,10 @@ resource "yandex_compute_instance" "web" {
   }
 
   scheduling_policy {
-    preemptible = true
+    preemptible = var.web_instance_preemptible
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file(var.ssh_key_path)}"
   }
 }

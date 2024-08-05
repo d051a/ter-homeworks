@@ -1,25 +1,23 @@
-# Создание трех дисков с использованием count
 resource "yandex_compute_disk" "data_disks" {
-  count = 3
+  count = var.data_disk_count
 
   name   = "data-disk-${count.index + 1}"
-  size   = 1 # Размер диска в ГБ
-  type   = "network-hdd" # Тип диска
+  size   = var.data_disk_size
+  type   = var.data_disk_type
 }
 
-# Создание виртуальной машины с именем "storage"
 resource "yandex_compute_instance" "storage" {
-  name = "storage"
+  name = var.storage_instance_name
 
   resources {
-    cores  = 2
-    memory = 2
+    cores  = var.storage_instance_cores
+    memory = var.storage_instance_memory
   }
 
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu-2004-lts.id
-      size     = 20 # Размер boot-диска
+      size     = var.storage_boot_disk_size
     }
   }
 
@@ -30,11 +28,11 @@ resource "yandex_compute_instance" "storage" {
   }
 
   scheduling_policy {
-    preemptible = true
+    preemptible = var.storage_instance_preemptible
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file(var.ssh_key_path)}"
   }
 
   dynamic "secondary_disk" {
@@ -44,4 +42,3 @@ resource "yandex_compute_instance" "storage" {
     }
   }
 }
-
